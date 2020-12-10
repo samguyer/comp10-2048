@@ -45,14 +45,14 @@ def add_tile(board):
 def swap_tiles(board, from_row, from_col, to_row, to_col):
     return
 
-# -- Combine two tiles
+# -- Merge two tiles
 #    This function combines two tiles. It *assumes* that the two
 #    given positions contain tiles with the same value, and that
 #    they are adjacent (in some direction), so you don't need to
 #    check these preconditions. The "from" position should end
 #    up empty (zero), and the "to" position should hold a tile
 #    with the new value (twice the original value).
-def combine_tiles(board, from_row, from_col, to_row, to_col):
+def merge_tiles(board, from_row, from_col, to_row, to_col):
     return
 
 # ----- Direction-specific functions -----------------------------
@@ -81,27 +81,40 @@ def compact_row_left(board, row):
     return
 
 # -- Merge row left
-#    This function performs any merging and summing of adjacent
-#    tiles that have the same value. It returns any points that
-#    are earned. Note that we will always run this function after
+#    This is the second tricky function in the program. It looks
+#    at adjacent pairs of tiles in the given row and merges them
+#    together if they have the same value. It returns any points
+#    earned. Note that we will always run this function *after*
 #    calling compact, so tiles that can be merged will always be
 #    next to each other. Also note that you do not need to worry
-#    about *where* the merged tiles end up -- we will just call
-#    compact again to remove any spaces. So, for example, given
-#    the following arguments:
+#    about any empty spaces left behind -- we will just call
+#    compact again to remove them. So, for example, given the
+#    following arguments:
 #      board = [[0,0,0,0],[0,2,0,2],[4,4,2,0],[0,0,0,0]]
 #      row = 2
 #    it should compact only row 2 (the third row) resulting in
 #      board = [[0,0,0,0],[0,2,2,0],[8,0,2,0],[0,0,0,0]]
 #    and return the value 4
+#    Note that merging a row can cause up to two pairs of tiles
+#    to merge, but not more.
 def merge_row_left(board, row):
-    return 0
+    points = 0
+    return points
+
+# -- Slide row left
+#    This function combines the two functions above to perform a
+#    complete "go left" operation for one row. It should first
+#    compact the row, to get all the tiles to one side, then merge
+#    adjacent tiles with the same value (if any), then compact the
+#    row again, to remove any spaces left behind. It should return
+#    the number of points
+def slide_row_left(board, row):
+    points = 0
+    return points
 
 # -- Slide left
-#    This function combines the two functions above to perform a
-#    complete "go left" operation. For each row in the board,
-#    the function should first compact the row, then merge the
-#    row, the compact it again. It should compute the total number
+#    This function simply calls slide_row_left for each row index
+#    on the board. It should keep track of the total number
 #    of points earned (if any) from the merging of the four rows
 #    and return that value.
 def slide_left(board):
@@ -148,6 +161,7 @@ def play2048():
     print('Thanks for playing!')
 
 # ----- Start of the program -------------------------------------
-#   The whole program consists of calling the play2048 function
-
+#  The whole program consists of calling the play2048 function
+#  For unit testing, comment out this function call and add code
+#  to create test boards, call functions, and print the results.
 play2048()
